@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+    rabbitmq:
+        container_name: "rabbitmq"
+        image: rabbitmq:3-management-alpine
+        volumes:
+            - .docker/rabbitmq/data:/var/lib/rabbitmq/
+        environment:
+            - RABBITMQ_DEFAULT_USER=root
+            - RABBITMQ_DEFAULT_PASS=root
+        ports:
+            - '5672:5672' # AMQP protocol port
+            - '15672:15672' # HTTP management UI
+        networks:
+            - rede-web-docker
+
+networks:
+    rede-web-docker:
+        name: rede-web-docker
+        driver: bridge
+        external: true
